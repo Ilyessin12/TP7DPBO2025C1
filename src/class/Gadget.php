@@ -1,5 +1,5 @@
 <?php
-require_once 'config/db.php';
+require_once __DIR__ . '/../config/db.php'; // Ensuring the path is correct in different directory structure
 
 class Gadget {
     private $db;
