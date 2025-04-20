@@ -17,7 +17,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="<?php echo (strpos($_SERVER['REQUEST_URI'], 'view') !== false) ? '../index.php' : 'index.php'; ?>">
-                <i class="bi bi-box me-2"></i>Future Gadget Lab
+                <img src="<?php echo (strpos($_SERVER['REQUEST_URI'], 'view') !== false) ? '../assets/logo.png' : 'assets/logo.png'; ?>" alt="Future Gadget Lab" height="30" class="me-2">Future Gadget Lab
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

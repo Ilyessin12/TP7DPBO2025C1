@@ -3,7 +3,7 @@
     <footer class="mt-5">
       <div class="text-center py-4">
         <div class="mb-2">
-          <i class="bi bi-box"></i> Future Gadget Lab
+          <img src="<?php echo (strpos($_SERVER['REQUEST_URI'], 'view') !== false) ? '../assets/logo.png' : 'assets/logo.png'; ?>" alt="Future Gadget Lab" height="25" class="me-2"> Future Gadget Lab
         </div>
         <div class="small text-muted">
           Managing the future, one gadget at a time

@@ -1,6 +1,6 @@
 body {
     font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f7f5; /* Light green-gray background */
+    background-color: #f0f7ff; /* Light blue-gray background */
     color: #333;
     line-height: 1.6;
 }
@@ -13,7 +13,7 @@ body {
 }
 
 .navbar-dark {
-    background: linear-gradient(to right, #2e7d32, #1b5e20); /* Green gradient */
+    background: linear-gradient(to right, #2e7d32, #1565c0); /* Green to blue gradient */
 }
 
 .navbar-dark .navbar-brand {
@@ -194,7 +194,7 @@ h2 {
 footer {
     margin-top: 3rem;
     padding-top: 1.5rem;
-    background-color: #e8f5e9; /* Light green footer */
+    background-color: #e8f0f8; /* Light blue footer */
     color: #424242;
 }
 
