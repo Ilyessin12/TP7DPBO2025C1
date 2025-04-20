@@ -3,7 +3,15 @@ require_once '../class/Gadget.php';
 include 'header.php'; // Include header
 
 $gadget = new Gadget();
-$gadgets = $gadget->getAllGadgets();
+
+// Handle search
+$searchTerm = '';
+if (isset($_GET['search'])) {
+    $searchTerm = trim($_GET['search']);
+    $gadgets = $gadget->getGadgets($searchTerm); // Changed from searchGadgets to getGadgets
+} else {
+    $gadgets = $gadget->getAllGadgets();
+}
 
 // Initialize variables for the form
 $edit_id = null;
@@ -126,8 +134,20 @@ if (isset($_GET['status'])) {
     </div>
 </form>
 
+<!-- Add search form -->
+<div class="row mb-4">
+    <div class="col">
+        <form action="gadgets.php" method="GET" class="d-flex">
+            <input type="text" name="search" class="form-control me-2" placeholder="Search gadgets by name..." value="<?php echo htmlspecialchars($searchTerm); ?>">
+            <button type="submit" class="btn btn-primary">Search</button>
+            <?php if (!empty($searchTerm)): ?>
+                <a href="gadgets.php" class="btn btn-secondary ms-2">Clear</a>
+            <?php endif; ?>
+        </form>
+    </div>
+</div>
 
-<h2>Gadgets List</h2>
+<h2>Gadgets List <?php if (!empty($searchTerm)): ?><small class="text-muted">(Search results for: <?php echo htmlspecialchars($searchTerm); ?>)</small><?php endif; ?></h2>
 <table class="table table-striped table-hover">
     <thead>
         <tr>

@@ -16,4 +16,18 @@ document.addEventListener("DOMContentLoaded", function() {
             link.removeAttribute('aria-current');
         }
     });
+    
+    // Clear search input when 'Clear' button is clicked
+    const clearButtons = document.querySelectorAll('.btn-secondary[href*="?"]');
+    clearButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const searchForm = this.closest('form');
+            if (searchForm) {
+                const inputFields = searchForm.querySelectorAll('input[type="text"], input[type="search"], select');
+                inputFields.forEach(field => {
+                    field.value = '';
+                });
+            }
+        });
+    });
 });

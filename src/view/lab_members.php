@@ -3,7 +3,15 @@ require_once '../class/LabMember.php';
 include 'header.php'; // Include header
 
 $labMember = new LabMember();
-$members = $labMember->getAllMembers();
+
+// Handle search
+$searchTerm = '';
+if (isset($_GET['search'])) {
+    $searchTerm = trim($_GET['search']);
+    $members = $labMember->getMembers($searchTerm); // Changed from searchMembers to getMembers
+} else {
+    $members = $labMember->getAllMembers();
+}
 
 // Initialize variables for the form
 $edit_id = null;
@@ -126,8 +134,20 @@ if (isset($_GET['status'])) {
     </div>
 </form>
 
+<!-- Add search form -->
+<div class="row mb-4">
+    <div class="col">
+        <form action="lab_members.php" method="GET" class="d-flex">
+            <input type="text" name="search" class="form-control me-2" placeholder="Search by name..." value="<?php echo htmlspecialchars($searchTerm); ?>">
+            <button type="submit" class="btn btn-primary">Search</button>
+            <?php if (!empty($searchTerm)): ?>
+                <a href="lab_members.php" class="btn btn-secondary ms-2">Clear</a>
+            <?php endif; ?>
+        </form>
+    </div>
+</div>
 
-<h2>Lab Members List</h2>
+<h2>Lab Members List <?php if (!empty($searchTerm)): ?><small class="text-muted">(Search results for: <?php echo htmlspecialchars($searchTerm); ?>)</small><?php endif; ?></h2>
 <table class="table table-striped table-hover">
     <thead>
         <tr>

@@ -8,9 +8,42 @@ $experiment = new Experiment();
 $gadget = new Gadget();
 $labMember = new LabMember();
 
-$experiments = $experiment->getAllExperiments();
 $gadgets = $gadget->getAllGadgets();         // Fetch gadgets for dropdown
 $members = $labMember->getAllMembers();     // Fetch members for dropdown
+
+// Handle search
+$memberSearch = '';
+$gadgetSearch = '';
+if (isset($_GET['member_id']) || isset($_GET['gadget_id'])) {
+    $memberSearch = isset($_GET['member_id']) && !empty($_GET['member_id']) ? $_GET['member_id'] : '';
+    $gadgetSearch = isset($_GET['gadget_id']) && !empty($_GET['gadget_id']) ? $_GET['gadget_id'] : '';
+    
+    // Get member and gadget names for search
+    $memberName = '';
+    $gadgetName = '';
+    
+    if (!empty($memberSearch)) {
+        foreach ($members as $m) {
+            if ($m['id'] == $memberSearch) {
+                $memberName = $m['name'];
+                break;
+            }
+        }
+    }
+    
+    if (!empty($gadgetSearch)) {
+        foreach ($gadgets as $g) {
+            if ($g['id'] == $gadgetSearch) {
+                $gadgetName = $g['name'];
+                break;
+            }
+        }
+    }
+    
+    $experiments = $experiment->getExperiments($memberName, $gadgetName); // Changed from searchExperiments to getExperiments
+} else {
+    $experiments = $experiment->getAllExperiments();
+}
 
 // Initialize variables for the form
 $edit_id = null;
@@ -149,8 +182,54 @@ if (isset($_GET['status'])) {
     </div>
 </form>
 
+<!-- Add advanced search form with dropdowns -->
+<div class="card mb-4">
+    <div class="card-header">
+        Search Experiments
+    </div>
+    <div class="card-body">
+        <form action="experiments.php" method="GET">
+            <div class="row g-3">
+                <div class="col-md-5">
+                    <label for="member_id" class="form-label">Lab Member</label>
+                    <select class="form-select" id="member_id" name="member_id">
+                        <option value="">All Lab Members</option>
+                        <?php foreach ($members as $member): ?>
+                            <option value="<?php echo $member['id']; ?>" <?php echo ($member['id'] == $memberSearch) ? 'selected' : ''; ?>>
+                                <?php echo htmlspecialchars($member['name']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <label for="gadget_id" class="form-label">Gadget</label>
+                    <select class="form-select" id="gadget_id" name="gadget_id">
+                        <option value="">All Gadgets</option>
+                        <?php foreach ($gadgets as $g): ?>
+                            <option value="<?php echo $g['id']; ?>" <?php echo ($g['id'] == $gadgetSearch) ? 'selected' : ''; ?>>
+                                <?php echo htmlspecialchars($g['name']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="col-md-2 align-self-end">
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                        <?php if (!empty($memberSearch) || !empty($gadgetSearch)): ?>
+                            <a href="experiments.php" class="btn btn-secondary">Clear</a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
-<h2>Experiments List</h2>
+<h2>Experiments List 
+    <?php if (!empty($memberSearch) || !empty($gadgetSearch)): ?>
+        <small class="text-muted">(Filtered results)</small>
+    <?php endif; ?>
+</h2>
 <table class="table table-striped table-hover">
     <thead>
         <tr>
