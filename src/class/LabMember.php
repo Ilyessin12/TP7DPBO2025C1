@@ -14,6 +14,14 @@ class LabMember {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // SEARCH - renamed to getMembers
+    public function getMembers($searchTerm) {
+        $searchTerm = "%" . $searchTerm . "%";
+        $stmt = $this->db->prepare("SELECT * FROM lab_members WHERE name LIKE ?");
+        $stmt->execute([$searchTerm]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // CREATE
     public function addMember($name, $email, $phone) {
         $stmt = $this->db->prepare("INSERT INTO lab_members (name, email, phone) VALUES (?, ?, ?)");

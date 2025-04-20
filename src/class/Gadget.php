@@ -14,6 +14,14 @@ class Gadget {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // SEARCH - renamed to getGadgets
+    public function getGadgets($searchTerm) {
+        $searchTerm = "%" . $searchTerm . "%";
+        $stmt = $this->db->prepare("SELECT * FROM gadgets WHERE name LIKE ?");
+        $stmt->execute([$searchTerm]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // CREATE
     public function addGadget($name, $description, $gadget_number, $quantity) {
         $stmt = $this->db->prepare("INSERT INTO gadgets (name, description, gadget_number, quantity) VALUES (?, ?, ?, ?)");
