@@ -4,7 +4,7 @@ USE db_lab;
 CREATE TABLE gadgets (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    creator VARCHAR(100) NOT NULL,
+    description VARCHAR(255) NOT NULL,
     gadget_number VARCHAR(13) UNIQUE,
     quantity INT NOT NULL DEFAULT 0
 );
@@ -27,10 +27,10 @@ CREATE TABLE experiments (
 );
 
 -- Insert sample gadgets from Steins;Gate
-INSERT INTO gadgets (name, creator, gadget_number, quantity) VALUES
-('Phone Microwave (Name subject to change)', 'Okabe Rintarou', 'FG001', 1),
-('Divergence Meter', 'Okabe Rintarou', 'FG002', 2),
-('Upa Detector', 'Itaru Hashida', 'FG003', 3);
+INSERT INTO gadgets (name, description, gadget_number, quantity) VALUES
+('Phone Microwave (Name subject to change)', 'Device capable of sending messages to the past', 'FG001', 1),
+('Divergence Meter', 'Measures the divergence between world lines', 'FG002', 2),
+('Upa Detector', 'Detects metal Upa figures in the vicinity', 'FG003', 3);
 
 -- Insert lab members
 INSERT INTO lab_members (name, email, phone) VALUES
