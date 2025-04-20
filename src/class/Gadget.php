@@ -15,15 +15,15 @@ class Gadget {
     }
 
     // CREATE
-    public function addGadget($name, $creator, $gadget_number, $quantity) {
-        $stmt = $this->db->prepare("INSERT INTO gadgets (name, creator, gadget_number, quantity) VALUES (?, ?, ?, ?)");
-        return $stmt->execute([$name, $creator, $gadget_number, $quantity]);
+    public function addGadget($name, $description, $gadget_number, $quantity) {
+        $stmt = $this->db->prepare("INSERT INTO gadgets (name, description, gadget_number, quantity) VALUES (?, ?, ?, ?)");
+        return $stmt->execute([$name, $description, $gadget_number, $quantity]);
     }
 
     // UPDATE
-    public function updateGadget($id, $name, $creator, $gadget_number, $quantity) {
-        $stmt = $this->db->prepare("UPDATE gadgets SET name = ?, creator = ?, gadget_number = ?, quantity = ? WHERE id = ?");
-        return $stmt->execute([$name, $creator, $gadget_number, $quantity, $id]);
+    public function updateGadget($id, $name, $description, $gadget_number, $quantity) {
+        $stmt = $this->db->prepare("UPDATE gadgets SET name = ?, description = ?, gadget_number = ?, quantity = ? WHERE id = ?");
+        return $stmt->execute([$name, $description, $gadget_number, $quantity, $id]);
     }
 
     // DELETE
