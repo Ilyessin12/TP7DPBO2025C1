@@ -198,9 +198,37 @@ footer {
     color: #424242;
 }
 
-footer .copyright {
-    background-color: rgba(46, 125, 50, 0.1);
-    padding: 1rem;
+/* Sponsors Section */
+.sponsors-section {
+    background-color: rgba(21, 101, 192, 0.05); /* Light blue background */
+    border-top: 1px solid rgba(46, 125, 50, 0.1);
+    border-bottom: 1px solid rgba(46, 125, 50, 0.1);
+}
+
+.sponsors-section h5 {
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.sponsor-logo {
+    transition: all 0.2s ease;
+    filter: grayscale(70%);
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sponsor-logo img {
+    height: 60px; /* Increased from 40px */
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.sponsor-logo:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: translateY(-3px);
 }
 
 /* Stats dashboard */
